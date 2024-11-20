@@ -5,18 +5,22 @@ part 'index.g.dart';
 @JsonSerializable()
 class MovieModel {
   int id;
-  String imgUrl;
+  String imgUrl, title;
   int? publishedYear, durationMin;
   String? type, description;
 
   MovieModel({
     required this.id,
     required this.imgUrl,
+    required this.title,
     this.description,
     this.publishedYear,
     this.durationMin,
     this.type,
   });
+
+  static List<MovieModel> fronList(List<dynamic> data) =>
+      data.map((e) => MovieModel.fromJson(e)).toList();
 
   factory MovieModel.fromJson(Map<String, dynamic> json) =>
       _$MovieModelFromJson(json);
