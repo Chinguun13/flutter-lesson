@@ -22,7 +22,6 @@ class _MoviesPageState extends State<MoviesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return FutureBuilder(
       future: __getData(),
       builder: ((context, snapshot) {
@@ -31,58 +30,60 @@ class _MoviesPageState extends State<MoviesPage> {
               ? snapshot.data!.sublist(0, 3)
               : snapshot.data!;
           return SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Trailers",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "Trailers",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              SingleChildScrollView(
-                padding: EdgeInsets.only(left: 10),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    _specialData.length,
-                    ((index) => MovieSpecialCard(_specialData[index])),
+                SizedBox(height: 10),
+                SingleChildScrollView(
+                  padding: EdgeInsets.only(left: 10),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      _specialData.length,
+                      ((index) => MovieSpecialCard(_specialData[index])),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Now is Cinema",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.white,
+                SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "Now is Cinema",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Wrap(
-                  spacing: 20,
-                  runSpacing: 10,
-                  children: List.generate(
-                    snapshot.data!.length,
-                    (index) => MovieCard(snapshot.data![index]),
+                SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 10,
+                    children: List.generate(
+                      snapshot.data!.length,
+                      (index) => MovieCard(snapshot.data![index]),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-            ],
-          ));
+                SizedBox(height: 20),
+              ],
+            ),
+          );
         } else {
           return SizedBox(
             height: 30,
