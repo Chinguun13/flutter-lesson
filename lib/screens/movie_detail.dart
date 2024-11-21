@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:movie/model/movie/index.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final MovieModel data;
+  final List<int> wishListIds;
+  final void Function(int) onToggleWishList;
 
-  const MovieDetailPage(this.data, {super.key});
+  const MovieDetailPage(this.data, this.wishListIds, this.onToggleWishList,
+      {super.key});
 
+  @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -18,12 +26,12 @@ class MovieDetailPage extends StatelessWidget {
               [
                 SizedBox(
                   width: width,
-                  height: width * 1.2,
+                  height: width * 1.5,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
                       Image.network(
-                        data.imgUrl,
+                        widget.data.imgUrl,
                         fit: BoxFit.fill,
                       ),
                       Container(
@@ -32,7 +40,6 @@ class MovieDetailPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.end,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
@@ -42,17 +49,18 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: 50),
                             Text(
-                              data.title,
+                              widget.data.title,
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                                fontSize: 24,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(height: 10),
                             Text(
-                              "${data.publishedYear} Year | ${data.durationMin} Min | ${data.type}",
+                              "${widget.data.publishedYear} | ${widget.data.durationMin} | ${widget.data.type}",
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Color(0xff777777),
                               ),
                             ),
@@ -60,45 +68,64 @@ class MovieDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(
-                            Icons.chevron_left,
-                            color: Colors.white,
-                            size: 30,
+                      SafeArea(
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(
+                              Icons.chevron_left,
+                              color: Colors.white,
+                              size: 30,
+                            ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Text(
-                        "Description",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 10),
-                      Text(
-                        data.description ?? '',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                      SafeArea(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.onToggleWishList(widget.data.id);
+                              });
+                            },
+                            icon: Icon(
+                              widget.wishListIds.any((e) => e == widget.data.id)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 30)
+                Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      "Тайлбар",
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      widget.data.description ?? '',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 30),
+                  ],
+                ),
               ],
             ),
           ),

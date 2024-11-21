@@ -11,12 +11,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<int> _wishListIds = [];
   int _currentIndex = 2;
-  List<Widget> _totalPage = [MoviesPage(), Wishlist(), ProfilePage()];
+  late List<Widget> _totalPage;
+
+  @override
+  void initState() {
+    super.initState();
+    _totalPage = [
+      MoviesPage(_wishListIds, _toggleWishList),
+      WishListPage(_wishListIds, _toggleWishList),
+      ProfilePage()
+    ];
+  }
 
   void _setCurrentIndex(int val) {
     setState(() {
       _currentIndex = val;
+    });
+  }
+
+  void _toggleWishList(int idx) {
+    print("toggle");
+    setState(() {
+      if (_wishListIds.any((e) => e == idx)) {
+        _wishListIds.remove(idx);
+      } else {
+        _wishListIds.add(idx);
+      }
     });
   }
 
@@ -33,15 +55,15 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.movie),
-            label: "Movie",
+            label: "Кино",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: "Likes",
+            label: "Дуртай",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Profile",
+            label: "Профайл",
           ),
         ],
       ),

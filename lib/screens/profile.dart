@@ -5,10 +5,10 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfileState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> {
   bool _isLogged = false;
 
   @override

@@ -10,11 +10,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _phoneCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
+  final _passCtrl = TextEditingController();
 
   void _onSubmit() {
     if (_formKey.currentState!.validate()) {
-      print("Successful");
+      print("Amjilltai");
     }
   }
 
@@ -28,23 +28,25 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Let's sign you in",
+                  "Let's sign you in.",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
-                  "Welcome to back",
+                  "Welcome back.",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28,
                   ),
                 ),
                 Text(
-                  "You've been missed",
+                  "You've been missed!",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28,
@@ -55,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _phoneCtrl,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Phone number is required";
+                      return "Хоосон байж болохгүй";
                     }
                     return null;
                   },
@@ -67,20 +69,22 @@ class _LoginPageState extends State<LoginPage> {
                         width: 1,
                       ),
                     ),
-                    label: Text("Phone Number"),
                     labelStyle: TextStyle(
                       color: Colors.white.withOpacity(0.6),
                     ),
+                    label: Text("Утасны дугаар"),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: _passwordCtrl,
+                  controller: _passCtrl,
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Password is required";
+                      return "Хоосон байж болохгүй";
                     }
                     return null;
                   },
@@ -95,9 +99,11 @@ class _LoginPageState extends State<LoginPage> {
                     labelStyle: TextStyle(
                       color: Colors.white.withOpacity(0.6),
                     ),
-                    label: Text("Password"),
+                    label: Text("Нууц үг"),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -106,14 +112,13 @@ class _LoginPageState extends State<LoginPage> {
               height: 50,
               child: ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white)),
-                onPressed: _onSubmit,
-                child: Text(
-                  "Sign in",
-                  style: TextStyle(color: Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  foregroundColor: MaterialStateProperty.all(Colors.black),
                 ),
+                onPressed: _onSubmit,
+                child: Text("Нэвтрэх"),
               ),
-            )
+            ),
           ],
         ),
       ),
