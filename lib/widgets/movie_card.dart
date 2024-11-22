@@ -4,18 +4,11 @@ import 'package:movie/screens/movie_detail.dart';
 
 class MovieCard extends StatelessWidget {
   final MovieModel data;
-  final List<int> wishListIds;
-  final void Function(int) onToggleWishList;
 
-  const MovieCard(this.data, this.wishListIds, this.onToggleWishList,
-      {super.key});
+  const MovieCard(this.data, {super.key});
 
   void _onCardTap(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                MovieDetailPage(data, wishListIds, onToggleWishList)));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(data)));
   }
 
   @override
@@ -30,8 +23,7 @@ class MovieCard extends StatelessWidget {
             width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                  image: NetworkImage(data.imgUrl), fit: BoxFit.fill),
+              image: DecorationImage(image: NetworkImage(data.imgUrl), fit: BoxFit.fill),
             ),
           ),
           SizedBox(height: 5),

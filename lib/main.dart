@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie/providers/common.dart';
 import 'package:movie/screens/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,12 +10,16 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movie app',
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CommonProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Movie App',
+        home: HomePage(),
+      ),
     );
   }
 }
