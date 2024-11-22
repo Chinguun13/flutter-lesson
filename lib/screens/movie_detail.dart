@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie/model/movie/index.dart';
 import 'package:movie/providers/common.dart';
+import 'package:movie/utils/index.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -19,7 +20,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!Provider.of<CommonProvider>(context, listen: false).isLoggedIn) {
         Provider.of<CommonProvider>(context, listen: false).changeCurrentIdx(2);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Нэвтэрнэ үү")));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Нэвтэрнэ үү")));
         Navigator.pop(context);
       }
     });
@@ -71,7 +73,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  "${widget.data.publishedYear} | ${widget.data.durationMin} | ${widget.data.type}",
+                                  "${widget.data.publishedYear} | ${Utils.integerMinToString(widget.data.durationMin)} | ${widget.data.type}",
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Color(0xff777777),
@@ -98,9 +100,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             child: Align(
                               alignment: Alignment.topRight,
                               child: IconButton(
-                                onPressed: () => provider.addWishList(widget.data.id),
+                                onPressed: () =>
+                                    provider.addWishList(widget.data.id),
                                 icon: Icon(
-                                  provider.isWishMovie(widget.data) ? Icons.favorite : Icons.favorite_border,
+                                  provider.isWishMovie(widget.data)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: Colors.white,
                                   size: 30,
                                 ),
